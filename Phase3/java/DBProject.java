@@ -256,7 +256,7 @@ public class DBProject {
    public static void addCustomer(DBProject esql){
     // Given customer details add the customer in the DB 
  	int customerID;
-	int phNo;
+	String phNo;
 	String fName;
 	String lName;
 	String address;
@@ -322,7 +322,7 @@ public class DBProject {
         do{
                 System.out.print("Phone #: ");
                 try{
-                        phNo = Integer.parseInt(in.readLine());
+                        phNo = in.readLine();
                         break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
@@ -357,31 +357,224 @@ public class DBProject {
 	try {
      		String query = "INSERT INTO Customer VALUES (" + customerID + ", \'" + fName + "\', \'" + lName + "\', \'" +
 				 address + "\', " + phNo + ",\'" + DOB + "\',\'" + gender + "\')";
-		int rowCount = esql.executeQuery(query);
-		System.out.println("total row(s): " + rowCount);
+		esql.executeQuery(query);
 	}catch(Exception e) {
 		System.err.println(e.getMessage());		
 	}	
    }//end addCustomer
 
    public static void addRoom(DBProject esql){
-	  // Given room details add the room in the DB
-      // Your code goes here.
-      // ...
-      // ...
+      // Given room details add the room in the DB
+      int hotelID;
+      int roomNo;
+      String roomType;
+
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Room Number: ");
+                try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Room Type: ");
+                try{
+                        roomType = in.readLine();
+                        if(roomType.length() <= 0 || roomType.length() > 10) {
+                                throw new RuntimeException("Invalid input: input is null or exceeds 10 characters...");
+                        }
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+        try {
+                String query = "INSERT INTO Room VALUES (" + hotelID + ", " + roomNo + ", \'" + roomType  + "\')";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end addRoom
 
    public static void addMaintenanceCompany(DBProject esql){
-      // Given maintenance Company details add the maintenance company in the DB
-      // ...
-      // ...
+        // Given maintenance Company details add the maintenance company in the DB
+        int cmpID;
+        String name;
+        String address;
+	String isCertified;
+
+        do{
+                System.out.print("Company ID: ");
+                try{
+                        cmpID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Name: ");
+                try{
+                        name = in.readLine();
+			if(name.length() <= 0 || name.length() > 10) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 10 characters...");
+			}
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Address: ");
+                try{
+                        address = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Is the company certified? (TRUE/FALSE): ");
+                try{
+                        isCertified = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "INSERT INTO MaintenanceCompany VALUES (" + cmpID + ",\'" + name + "\', \'" + address + "\'," + isCertified +")";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end addMaintenanceCompany
 
    public static void addRepair(DBProject esql){
-	  // Given repair details add repair in the DB
-      // Your code goes here.
-      // ...
-      // ...
+    // Given repair details add repair in the DB
+	int rID;
+	int hotelID;
+	int roomNo;
+	int mCompany;
+	String repairDate;
+	String description;
+	String repairType;
+	 
+	do{
+                System.out.print("Repair ID: ");
+                try{
+                        rID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Room Number: ");
+                try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Company ID: ");
+                try{
+                        mCompany = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+	do{
+                System.out.print("Repair Date: ");
+                try{
+                        repairDate = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Description of repair: ");
+                try{
+                        description = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Repair Type: ");
+                try{
+                        repairType = in.readLine();
+                        if(repairType.length() <= 0 || repairType.length() > 10) {
+                                throw new RuntimeException("Invalid input: input is null or exceeds 10 characters...");
+                        }
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+        try {
+		String query = "INSERT INTO Repair VALUES (" + rID + "," + hotelID + "," + roomNo + "," + mCompany + 
+					",\'" + repairDate + "\',\'" + description + "\',\'" + repairType + "\')";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
+   
    }//end addRepair
 
    public static void bookRoom(DBProject esql){
