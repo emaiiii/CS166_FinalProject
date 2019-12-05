@@ -578,17 +578,150 @@ public class DBProject {
    }//end addRepair
 
    public static void bookRoom(DBProject esql){
-	  // Given hotelID, roomNo and customer Name create a booking in the DB 
-      // Your code goes here.
-      // ...
-      // ...
+      // Given hotelID, roomNo and customer Name create a booking in the DB 
+        int bID;
+        int customer;
+        int hotelID;
+        int roomNo;
+        int noOfPeople;
+        int price;
+        String bookingDate;
+  
+        do{
+            System.out.print("Booking ID: ");
+            try{
+              bID = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+  
+  
+        do{
+            System.out.print("Customer ID: ");
+            try{
+              customer = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+  
+  
+        do{
+            System.out.print("Hotel ID: ");
+            try{
+              hotelID = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+  
+  
+        do{
+            System.out.print("Room Number: ");
+            try{
+              roomNo = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+   
+        do{
+               System.out.print("Booking Date: ");
+               try{
+                       bookingDate = in.readLine();
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+    
+
+        do{
+            System.out.print("Number of People: ");
+            try{
+              noOfPeople = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+  
+        do{
+            System.out.print("Price: ");
+            try{
+              price = Integer.parseInt(in.readLine());
+              break;
+            }catch(Exception e) {
+              System.err.println(e.getMessage());
+              continue;
+            }
+        }while(true);
+  
+        try {
+               String query = "INSERT INTO Booking VALUES (" + bID + ", " + customer + ", " + hotelID + 
+                                  ", " + roomNo + ",\'" + bookingDate + "\'," + noOfPeople + "," + price + ")";
+		esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());   
+        } 
    }//end bookRoom
 
    public static void assignHouseCleaningToRoom(DBProject esql){
-	  // Given Staff SSN, HotelID, roomNo Assign the staff to the room 
-      // Your code goes here.
-      // ...
-      // ...
+      // Given Staff SSN, HotelID, roomNo Assign the staff to the room 
+  	int hotelID;
+        int roomNo;
+        int staffID;
+  
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Room Number: ");
+                try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Staff ID: ");
+                try{
+                        staffID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "UPDATE Assigned SET roomNo = " + roomNo + " WHERE hotelID = " + hotelID + " and staffID = " + staffID;
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end assignHouseCleaningToRoom
    
    public static void repairRequest(DBProject esql){
@@ -606,10 +739,27 @@ public class DBProject {
    }//end numberOfAvailableRooms
    
    public static void numberOfBookedRooms(DBProject esql){
-	  // Given a hotelID, get the count of rooms booked
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a hotelID, get the count of rooms booked
+        int hotelID;
+        
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT COUNT(*) FROM Booking b WHERE b.hotelID = " + hotelID;
+                int rowCount = esql.executeQuery(query);
+		System.out.println("Total row(s): " + rowCount);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end numberOfBookedRooms
    
    public static void listHotelRoomBookingsForAWeek(DBProject esql){
@@ -641,10 +791,29 @@ public class DBProject {
    }//end totalCostForCustomer
    
    public static void listRepairsMade(DBProject esql){
-	  // Given a Maintenance company name list all the repairs along with repairType, hotelID and roomNo
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a Maintenance company name list all the repairs along with repairType, hotelID and roomNo
+        String name;
+        
+        do{
+                System.out.print("Maintenance Company Name: ");
+                try{
+                        name = in.readLine();
+                        if(name.length() <= 0 || name.length() > 30) {
+                                throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+                        }
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT r.repairType, r.hotelID, r.roomNo FROM Repair r, MaintenanceCompany m WHERE r.mCompany = m.cmpID AND m.name = " + name;
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end listRepairsMade
    
    public static void topKMaintenanceCompany(DBProject esql){
