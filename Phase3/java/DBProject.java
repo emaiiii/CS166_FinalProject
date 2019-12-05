@@ -254,10 +254,114 @@ public class DBProject {
 
    
    public static void addCustomer(DBProject esql){
-	  // Given customer details add the customer in the DB 
-      // Your code goes here.
-      // ...
-      // ...
+    // Given customer details add the customer in the DB 
+ 	int customerID;
+	int phNo;
+	String fName;
+	String lName;
+	String address;
+	String DOB;
+	String gender;
+
+	do{
+		System.out.print("Customer ID: ");
+		try{
+			customerID = Integer.parseInt(in.readLine());
+			break;
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			continue;
+		}
+	}while(true);
+
+
+        do{
+                System.out.print("First Name: ");
+                try{
+                        fName = in.readLine();
+			if(fName.length() <= 0 || fName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+
+        do{
+                System.out.print("Last Name: ");
+                try{
+                        lName = in.readLine();
+			if(lName.length() <= 0 || lName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+
+        do{
+                System.out.print("Address: ");
+                try{
+                        address = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+        do{
+                System.out.print("Phone #: ");
+                try{
+                        phNo = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+        do{
+                System.out.print("Date of Birth: ");
+                try{
+                        DOB = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+
+        do{
+                System.out.print("Gender: ");
+                try{
+                        gender = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+	try {
+     		String query = "INSERT INTO Customer VALUES (" + customerID + ", \'" + fName + "\', \'" + lName + "\', \'" +
+				 address + "\', " + phNo + ",\'" + DOB + "\',\'" + gender + "\')";
+		int rowCount = esql.executeQuery(query);
+		System.out.println("total row(s): " + rowCount);
+	}catch(Exception e) {
+		System.err.println(e.getMessage());		
+	}	
    }//end addCustomer
 
    public static void addRoom(DBProject esql){
