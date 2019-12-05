@@ -725,17 +725,124 @@ public class DBProject {
    }//end assignHouseCleaningToRoom
    
    public static void repairRequest(DBProject esql){
-	  // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
+        int hotelID;
+        int ssn;
+        int roomNo;
+
+        int reqID;
+        int managerID;
+        int repairID;
+        String requestDate;
+        String description;
+
+          do{
+                  System.out.print("Hotel ID: ");
+                  try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Staff SSN: ");
+                  try{
+                        ssn = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Room Number: ");
+                  try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Repair ID: ");
+                  try{
+                        repairID = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Request Date (YYYY-MM-DD): ");
+                  try{
+                        requestDate = in.readLine();
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }
+          while(true);
+
+          do{
+                  System.out.print("Repair Request Description: ");
+                  try{
+                        description = in.readLine();
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }
+          while(true);
+
+          ResultSet rs = esql.executeQuery("SELECT h.manager FROM Hotel h WHERE h.hID = " + hotelID);
+          managerID = ((Number) rs.getObject(1)).intValue();
+
+          rs = esql.executeQuery("SELECT MAX(r.reqID) FROM Request");
+          reqID = ((Number) rs.getObject(1)).intValue() + 1;
+
+      try {
+            String query = "INSERT INTO Request VALUES (" + reqID + ", " + managerID + ", " + repairID + ", \'" +
+                                requestDate + "\', \'" + description + "\')";
+            esql.executeQuery(query);
+      }catch(Exception e) {
+          System.err.println(e.getMessage());
+      }
    }//end repairRequest
    
    public static void numberOfAvailableRooms(DBProject esql){
-	  // Given a hotelID, get the count of rooms available 
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a hotelID, get the count of rooms available 
+        int hotelID;
+        
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+        
+        try {
+                String query = "SELECT COUNT(*) FROM Room r WHERE r.roomNo IN (SELECT r.roomNo FROM Room r WHERE r.hotelID = " +
+                                    hotelID + ") AND r.roomNo NOT IN (SELECT r.roomNo FROM Room r, Booking b WHERE r.roomNo = b.roomNo AND b.hotelID = " +
+                                        hotelID + ")";
+                int rowCount = esql.executeQuery(query);
+                System.out.println("total row(s):" + rowCount);
+	}catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end numberOfAvailableRooms
    
    public static void numberOfBookedRooms(DBProject esql){
