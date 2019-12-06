@@ -91,18 +91,18 @@ public class DBProject {
     * @return the number of rows returned
     * @throws java.sql.SQLException when failed to execute the query
     */
-   public int executeQuery (String query) throws SQLException {
+   public ResultSet executeQuery (String query) throws SQLException {
       // creates a statement object
       Statement stmt = this._connection.createStatement ();
 
       // issues the query instruction
       ResultSet rs = stmt.executeQuery (query);
-
+      return rs;
       /*
        ** obtains the metadata object for the returned result set.  The metadata
        ** contains row and column info.
        */
-      ResultSetMetaData rsmd = rs.getMetaData ();
+      /*ResultSetMetaData rsmd = rs.getMetaData ();
       int numCol = rsmd.getColumnCount ();
       int rowCount = 0;
 
@@ -122,7 +122,7 @@ public class DBProject {
          ++rowCount;
       }//end while
       stmt.close ();
-      return rowCount;
+      return rowCount;*/
    }//end executeQuery
 
    /**
@@ -579,38 +579,11 @@ public class DBProject {
 
    public static void bookRoom(DBProject esql){
       // Given hotelID, roomNo and customer Name create a booking in the DB 
-        int bID;
-        int customer;
-        int hotelID;
+    	int hotelID;
         int roomNo;
-        int noOfPeople;
-        int price;
-        String bookingDate;
-  
-        do{
-            System.out.print("Booking ID: ");
-            try{
-              bID = Integer.parseInt(in.readLine());
-              break;
-            }catch(Exception e) {
-              System.err.println(e.getMessage());
-              continue;
-            }
-        }while(true);
-  
-  
-        do{
-            System.out.print("Customer ID: ");
-            try{
-              customer = Integer.parseInt(in.readLine());
-              break;
-            }catch(Exception e) {
-              System.err.println(e.getMessage());
-              continue;
-            }
-        }while(true);
-  
-  
+        String fName;
+        String lName;
+
         do{
             System.out.print("Hotel ID: ");
             try{
@@ -621,8 +594,7 @@ public class DBProject {
               continue;
             }
         }while(true);
-  
-  
+
         do{
             System.out.print("Room Number: ");
             try{
@@ -633,48 +605,39 @@ public class DBProject {
               continue;
             }
         }while(true);
-   
+
         do{
-               System.out.print("Booking Date: ");
+               System.out.print("Customer First Name: ");
                try{
-                       bookingDate = in.readLine();
+                       fName = in.readLine();
                        break;
                }catch(Exception e) {
                        System.err.println(e.getMessage());
                        continue;
                }
        }while(true);
-    
 
-        do{
-            System.out.print("Number of People: ");
-            try{
-              noOfPeople = Integer.parseInt(in.readLine());
-              break;
-            }catch(Exception e) {
-              System.err.println(e.getMessage());
-              continue;
-            }
-        }while(true);
-  
-        do{
-            System.out.print("Price: ");
-            try{
-              price = Integer.parseInt(in.readLine());
-              break;
-            }catch(Exception e) {
-              System.err.println(e.getMessage());
-              continue;
-            }
-        }while(true);
-  
-        try {
-               String query = "INSERT INTO Booking VALUES (" + bID + ", " + customer + ", " + hotelID + 
-                                  ", " + roomNo + ",\'" + bookingDate + "\'," + noOfPeople + "," + price + ")";
-		esql.executeQuery(query);
-        }catch(Exception e) {
-                System.err.println(e.getMessage());   
-        } 
+       do{
+              System.out.print("Customer Last Name: ");
+              try{
+                      lName = in.readLine();
+                      break;
+              }catch(Exception e) {
+                      System.err.println(e.getMessage());
+                      continue;
+              }
+      }while(true);
+
+       try {
+	       ResultSet customer = esql.executeQuery("SELECT * FROM Customer c WHERE c. fname = \'" + fName + "\' AND c.lName = \'" + lName + "\'");
+               customer.next();
+
+               String customerID = customer.getString("customerID");
+               String query = "INSERT INTO Booking (\'" + customerID + "\', " + hotelID + ", " + roomNo + ")";
+               esql.executeQuery(query);
+       }catch(Exception e) {
+                System.err.println(e.getMessage());
+       }
    }//end bookRoom
 
    public static void assignHouseCleaningToRoom(DBProject esql){
@@ -726,7 +689,7 @@ public class DBProject {
    
    public static void repairRequest(DBProject esql){
       // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
-	int hotelID;
+	/*int hotelID;
         int ssn;
         int roomNo;
 
@@ -819,7 +782,7 @@ public class DBProject {
             esql.executeQuery(query);
       }catch(Exception e) {
             System.err.println(e.getMessage());
-      }
+      }*/
    }//end repairRequest
    
    public static void numberOfAvailableRooms(DBProject esql){
@@ -841,8 +804,6 @@ public class DBProject {
                 String query = "SELECT COUNT(*) FROM Room r WHERE r.roomNo IN (SELECT r.roomNo FROM Room r WHERE r.hotelID = " +
                                     hotelID + ") AND r.roomNo NOT IN (SELECT r.roomNo FROM Room r, Booking b WHERE r.roomNo = b.roomNo AND b.hotelID = " +
                                         hotelID + ")";
-                int rowCount = esql.executeQuery(query);
-                System.out.println("total row(s):" + rowCount);
 	}catch(Exception e) {
                 System.err.println(e.getMessage());
         }
@@ -865,8 +826,7 @@ public class DBProject {
 
         try {
                 String query = "SELECT COUNT(*) FROM Booking b WHERE b.hotelID = " + hotelID;
-                int rowCount = esql.executeQuery(query);
-		System.out.println("Total row(s): " + rowCount);
+                esql.executeQuery(query);
         }catch(Exception e) {
                 System.err.println(e.getMessage());
         }
