@@ -726,97 +726,6 @@ public class DBProject {
    
    public static void repairRequest(DBProject esql){
       // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
-        int hotelID;
-        int ssn;
-        int roomNo;
-
-        int reqID;
-        int managerID;
-        int repairID;
-        String requestDate;
-        String description;
-
-          do{
-                  System.out.print("Hotel ID: ");
-                  try{
-                        hotelID = Integer.parseInt(in.readLine());
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }while(true);
-
-          do{
-                  System.out.print("Staff SSN: ");
-                  try{
-                        ssn = Integer.parseInt(in.readLine());
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }while(true);
-
-          do{
-                  System.out.print("Room Number: ");
-                  try{
-                        roomNo = Integer.parseInt(in.readLine());
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }while(true);
-
-          do{
-                  System.out.print("Repair ID: ");
-                  try{
-                        repairID = Integer.parseInt(in.readLine());
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }while(true);
-
-          do{
-                  System.out.print("Request Date (YYYY-MM-DD): ");
-                  try{
-                        requestDate = in.readLine();
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }
-          while(true);
-
-          do{
-                  System.out.print("Repair Request Description: ");
-                  try{
-                        description = in.readLine();
-                        break;
-                  }catch(Exception e) {
-                        System.err.println(e.getMessage());
-                        continue;
-                  }
-          }
-          while(true);
-
-          ResultSet rs = esql.executeQuery("SELECT h.manager FROM Hotel h WHERE h.hID = " + hotelID);
-          managerID = ((Number) rs.getObject(1)).intValue();
-
-          rs = esql.executeQuery("SELECT MAX(r.reqID) FROM Request");
-          reqID = ((Number) rs.getObject(1)).intValue() + 1;
-
-      try {
-            String query = "INSERT INTO Request VALUES (" + reqID + ", " + managerID + ", " + repairID + ", \'" +
-                                requestDate + "\', \'" + description + "\')";
-            esql.executeQuery(query);
-      }catch(Exception e) {
-          System.err.println(e.getMessage());
-      }
    }//end repairRequest
    
    public static void numberOfAvailableRooms(DBProject esql){
@@ -891,10 +800,51 @@ public class DBProject {
    }//end topKHighestPriceBookingsForACustomer
    
    public static void totalCostForCustomer(DBProject esql){
-	  // Given a hotelID, customer Name and date range get the total cost incurred by the customer
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a hotelID, customer Name and date range get the total cost incurred by the customer
+	String fName;
+        String lName;
+        int K;
+
+         do{
+                System.out.print("Customer's First Name: ");
+                try{
+                        fName = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Customer's Last Name: ");
+                try{
+                        lName = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+         do{
+                System.out.print("Provide Number of Bookings: ");
+                try{
+                        K = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT b.price FROM Booking b, Customer c WHERE c.customerID = b.customer AND c.fName = \'" + fName + 
+                                    "\' AND c.lname = \'" + lName + "\' LIMIT " + K + " ORDER BY price DESC";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end totalCostForCustomer
    
    public static void listRepairsMade(DBProject esql){
@@ -924,17 +874,63 @@ public class DBProject {
    }//end listRepairsMade
    
    public static void topKMaintenanceCompany(DBProject esql){
-	  // List Top K Maintenance Company Names based on total repair count (descending order)
-      // Your code goes here.
-      // ...
-      // ...
+	 // List Top K Maintenance Company Names based on total repair count (descending order)
+        int k;
+        
+        do{
+                System.out.print("Please enter number of companies: ");
+                try{
+                        k = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT m.name FROM MaintenanceCompany m, Repair r WHERE m.cmpID = r.mCompany LIMIT " + k + 
+                                " ORDER BY (SELECT COUNT(*) FROM MaintenanceCompany m, Repair r WHERE m.cmpID = r.mCompany) DESC";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end topKMaintenanceCompany
    
    public static void numberOfRepairsForEachRoomPerYear(DBProject esql){
-	  // Given a hotelID, roomNo, get the count of repairs per year
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a hotelID, roomNo, get the count of repairs per year
+        int hotelID;
+        int roomNo;
+
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Room Number: ");
+                try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+        
+        try {
+                String query = "SELECT COUNT(*) FROM Repair r WHERE r.roomNo = " + roomNo + 
+                                  "AND r.hotelID = " + hotelID + " AND r.repairDate BETWEEN r.repairDate AND DATEADD(month, 12, r.repairDate)";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end listRepairsMade
 
 }//end DBProject
