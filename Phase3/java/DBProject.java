@@ -726,7 +726,7 @@ public class DBProject {
    
    public static void repairRequest(DBProject esql){
       // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
-int hotelID;
+	int hotelID;
         int ssn;
         int roomNo;
 
@@ -909,17 +909,61 @@ int hotelID;
    }//end listHotelRoomBookingsForAWeek
    
    public static void topKHighestRoomPriceForADateRange(DBProject esql){
-	  // List Top K Rooms with the highest price for a given date range
-      // Your code goes here.
-      // ...
-      // ...
+    // List Top K Rooms with the highest price for a given date range
+       int k;
+        
+       do{
+               System.out.print("Please enter number of rooms: ");
+               try{
+                       k = Integer.parseInt(in.readLine());
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+       
+       try {
+               String query = "";
+               esql.executeQuery(query);
+       }catch(Exception e) {
+               System.err.println(e.getMessage());
+       }
    }//end topKHighestRoomPriceForADateRange
    
    public static void topKHighestPriceBookingsForACustomer(DBProject esql){
-	  // Given a customer Name, List Top K highest booking price for a customer 
-      // Your code goes here.
-      // ...
-      // ...
+      // Given a customer Name, List Top K highest booking price for a customer 
+	String fName;
+        String lName;
+         
+        do{
+               System.out.print("Customer's First Name: ");
+               try{
+                       fName = in.readLine();
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+ 
+       do{
+               System.out.print("Customer's Last Name: ");
+               try{
+                       lName = in.readLine();
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+
+       try {
+               String query = "";
+               esql.executeQuery(query);
+       }catch(Exception e) {
+               System.err.println(e.getMessage());
+       }
    }//end topKHighestPriceBookingsForACustomer
    
    public static void totalCostForCustomer(DBProject esql){
