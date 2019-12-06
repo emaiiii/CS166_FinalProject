@@ -21,13 +21,12 @@ string managerVar = "SELECT h.manager FROM Hotel h WHERE h.hID = hIDVar";
 INSERT INTO Request
 VALUES (reqIDrepairID, managerVar, repairID, requestDate, description);
 
-SELECT Total_Rooms - Booked_Rooms as Available_Rooms
-FROM ((SELECT r.roomNo as Total_Rooms
-	FROM Room r
-	WHERE r.hotelID = hotelID) AND
-	(SELECT r.roomNo as Booked_Rooms
-	  FROM Room r, Booking b
-	  WHERE r.hotelID = b.hotelID))
+SELECT COUNT(*)
+FROM Room r, Booking b
+WHERE r.hotelID = b.hotelID AND r.hotelID = hotelID AND r.roomNo NOT IN (
+		SELECT r.roomNo 
+		FROM Room r, Booking b
+		where r.roomNo = b.roomNo);
 
 SELECT COUNT(*)
 FROM Booking b, Room r
@@ -42,14 +41,15 @@ SELECT r.repairType, r.hotelID, r.roomNo
 FROM Repair r, MaintenanceCompany m
 WHERE r.mCompany = m.cmpID AND m.name = name;
 
-SELECT COUNT(*)
+SELECT DATE_PART('year', r.repairDate), COUNT(*)
 FROM Repair r
-WHERE r.roomNo = givenRoomNo AND r.hotelID = givenHotelID AND r.repairDate BETWEEN r.repairDate AND DATEADD(month, 12, r.repairDate);
+WHERE r.roomNo = givenRoomNo AND r.hotelID = givenHotelID 
+GROUP BY DATE_PART('year', r.repairDate);
 
-// MITCHELL
 SELECT r.roomNo
-FROM Booking b, Room r
-WHERE b.hotelID = r.hotelID AND b.roomNo = r.roomNo AND b.bookingDate BETWEEN b.bookingDate AND DATEADD(day, 6, b.bookingDate);
+FROM Room r, Booking b
+WHERE r.hotelID = b.hotelID AND (b.bookingDate BETWEEN bookingDate AND DATE bookingDate +
+	INTERVAL '1 week');
 
 SELECT b.price
 FROM Booking b, Customer c
@@ -70,6 +70,24 @@ LIMIT K
 ORDER BY (SELECT count (*)
 FROM MaintenanceCompany m, Repair r
 WHERE m.cmpID = r.mCompany) DESC;
+
+// List Top K Rooms with the highest price for a given date range
+SELECT b.price, b.roomNo
+FROM Room r, Booking b
+WHERE r.hotelID = b.hotelID AND r.roomNo = b.roomNo AND (b.bookingDate BETWEEN dateStart AND DATE dateEND);
+ORDER BY b.price DESC 
+LIMIT K;
+
+// Given a hotelID, customer Name and date range get the total cost incurred by the customer
+SELECT SUM(b.price)
+FROM Booking b
+WHERE b.hotelID = hotelID AND b.customer = (SELECT c.customerID 
+						FROM Customer c 
+						WHERE c.fName = fName AND c.lName = lName)
+AND b.bookingDate BETWEEN startDate AND DATE endDate;
+
+
+
 
 
 
