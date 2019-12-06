@@ -629,14 +629,16 @@ public class DBProject {
       }while(true);
 
        try {
-	       ResultSet customer = esql.executeQuery("SELECT * FROM Customer c WHERE c.fName = \'" + fName + "\' AND c.lName = \'" + lName + "\'");
-               customer.next();
-	       customer.next();
+               ResultSet getCustomer = esql.executeQuery("SELECT * FROM Customer WHERE fname = '" + fName + "' AND lName = '" + lName + "'");
+               getCustomer.next();
 
-               String customerID = customer.getString("customerID");
-               String query = "INSERT INTO Booking (\'" + customerID + "\', " + hotelID + ", " + roomNo + ")";
-               esql.executeQuery(query);
-       }catch(Exception e) {
+               ResultSet getNewID = esql.executeQuery("SELECT MAX(customerID) AS max_id FROM Customer");
+               getNewID.next();
+               
+               int bID = getNewID.getInt("max_id") + 1;
+               String customerID = getCustomer.getString("customerID");
+               String query = "INSERT INTO Booking (customer, hotelID, roomNo) VALUES (" + bID + ", " + customerID + ", " + hotelID + ", " + roomNo + ", 10131998, 1, 1)";
+	}catch(Exception e) {
                 System.err.println(e.getMessage());
        }
    }//end bookRoom
