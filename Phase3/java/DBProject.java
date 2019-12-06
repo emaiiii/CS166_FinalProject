@@ -629,8 +629,9 @@ public class DBProject {
       }while(true);
 
        try {
-	       ResultSet customer = esql.executeQuery("SELECT * FROM Customer c WHERE c. fname = \'" + fName + "\' AND c.lName = \'" + lName + "\'");
+	       ResultSet customer = esql.executeQuery("SELECT * FROM Customer c WHERE c.fName = \'" + fName + "\' AND c.lName = \'" + lName + "\'");
                customer.next();
+	       customer.next();
 
                String customerID = customer.getString("customerID");
                String query = "INSERT INTO Booking (\'" + customerID + "\', " + hotelID + ", " + roomNo + ")";
