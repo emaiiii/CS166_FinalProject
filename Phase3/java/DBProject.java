@@ -323,7 +323,6 @@ public class DBProject {
         }while(true);
 
 
-
         do{
                 System.out.print("Last Name: ");
                 try{
@@ -957,12 +956,36 @@ public class DBProject {
    
    public static void topKHighestRoomPriceForADateRange(DBProject esql){
     // List Top K Rooms with the highest price for a given date range
-       int k;
-        
+       int K;
+       String dateStart;
+       String dateEnd;
+
        do{
                System.out.print("Please enter number of rooms: ");
                try{
-                       k = Integer.parseInt(in.readLine());
+                       K = Integer.parseInt(in.readLine());
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+
+       do{
+               System.out.print("Date Start: ");
+               try{
+                       dateStart = in.readLine();
+                       break;
+               }catch(Exception e) {
+                       System.err.println(e.getMessage());
+                       continue;
+               }
+       }while(true);
+
+       do{
+               System.out.print("Date Start: ");
+               try{
+                       dateEnd = in.readLine();
                        break;
                }catch(Exception e) {
                        System.err.println(e.getMessage());
@@ -971,8 +994,9 @@ public class DBProject {
        }while(true);
        
        try {
-               String query = "";
-               esql.executeQuery(query);
+               String query = "SELECT b.price, b.bookingDate FROM Room r, Booking b WHERE r.roomNo = b.roomNo AND b.bookingDate BETWEEN \'" + 
+					dateStart + "\' AND DATE \'" + dateEnd + "\' ORDER BY b.price DESC LIMIT " + K;
+               esql.executeQuery2(query);
        }catch(Exception e) {
                System.err.println(e.getMessage());
        }
@@ -1030,7 +1054,9 @@ public class DBProject {
       // Given a hotelID, customer Name and date range get the total cost incurred by the customer
 	String fName;
         String lName;
-        int K;
+        int hotelID;
+	String startDate;
+	String endDate;
 
          do{
                 System.out.print("Customer's First Name: ");
@@ -1055,9 +1081,31 @@ public class DBProject {
         }while(true);
 
          do{
-                System.out.print("Provide Number of Bookings: ");
+                System.out.print("Hotel ID: ");
                 try{
-                        K = Integer.parseInt(in.readLine());
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Start Date: ");
+                try{
+                        startDate = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("End Date: ");
+                try{
+                        endDate = in.readLine();
                         break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
@@ -1066,9 +1114,15 @@ public class DBProject {
         }while(true);
 
         try {
-                String query = "SELECT b.price FROM Booking b, Customer c WHERE c.customerID = b.customer AND c.fName = \'" + fName + 
-                                    "\' AND c.lname = \'" + lName + "\' LIMIT " + K + " ORDER BY price DESC";
-                esql.executeQuery(query);
+		ResultSet getCustomer = esql.executeQuery("SELECT COUNT(*) AS customerID FROM Customer c WHERE c.fName = \'" +
+					 fName + "\' AND c.lName = \'" + lName + "\'");
+		getCustomer.next();
+
+		String customerID = getCustomer.getString("customerID");
+
+		String query = "SELECT SUM(b.price), b.customer FROM Booking b WHERE b.hotelID = " + hotelID + 
+				" AND b.customer = " + customerID +"AND b.bookingDate BETWEEN \'"+ startDate + "\' AND DATE \'" + endDate + "\' GROUP BY b.customer";
+                esql.executeQuery2(query);
         }catch(Exception e) {
                 System.err.println(e.getMessage());
         }
