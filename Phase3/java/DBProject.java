@@ -726,6 +726,100 @@ public class DBProject {
    
    public static void repairRequest(DBProject esql){
       // Given a hotelID, Staff SSN, roomNo, repairID , date create a repair request in the DB
+int hotelID;
+        int ssn;
+        int roomNo;
+
+        int reqID;
+        int managerID;
+        int repairID;
+        String requestDate;
+        String description;
+
+          do{
+                  System.out.print("Hotel ID: ");
+                  try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Staff SSN: ");
+                  try{
+                        ssn = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Room Number: ");
+                  try{
+                        roomNo = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Repair ID: ");
+                  try{
+                        repairID = Integer.parseInt(in.readLine());
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }while(true);
+
+          do{
+                  System.out.print("Request Date (YYYY-MM-DD): ");
+                  try{
+                        requestDate = in.readLine();
+                        if(requestDate.length() != 10) {
+                          throw new RuntimeException("Invalid input: input must follow format: 'YYYY-MM-DD'");
+                        }
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }
+          while(true);
+
+          do{
+                  System.out.print("Repair Request Description: ");
+                  try{
+                        description = in.readLine();
+                        break;
+                  }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                  }
+          }
+          while(true);
+
+          ResultSet rs = esql.executeQuery("SELECT h.manager FROM Hotel h WHERE h.hID = " + hotelID);
+          managerID = ((Number) rs.getObject(1)).intValue();
+
+          rs = esql.executeQuery("SELECT MAX(r.reqID) FROM Request");
+          reqID = ((Number) rs.getObject(1)).intValue() + 1;
+
+      try {
+       	    String query = "INSERT INTO Request VALUES (" + reqID + ", " + managerID + ", " + repairID + ", \'" +
+                                requestDate + "\', \'" + description + "\')";
+            esql.executeQuery(query);
+      }catch(Exception e) {
+            System.err.println(e.getMessage());
+      }
    }//end repairRequest
    
    public static void numberOfAvailableRooms(DBProject esql){
@@ -780,9 +874,38 @@ public class DBProject {
    
    public static void listHotelRoomBookingsForAWeek(DBProject esql){
 	  // Given a hotelID, date - list all the rooms available for a week(including the input date) 
-      // Your code goes here.
-      // ...
-      // ...
+  	int hotelID;
+        String date;
+        
+        do{
+                System.out.print("Hotel ID: ");
+                try{
+                        hotelID = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Date: ");
+                try{
+                        date = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT b.roomNo FROM Booking b WHERE b.hotelID = " + hotelID + " AND b.bookingDate = " + date +
+                                  "BETWEEN b.bookingDate AND DATEADD(day, 6, b.bookingDate);";
+                esql.executeQuery(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }  
    }//end listHotelRoomBookingsForAWeek
    
    public static void topKHighestRoomPriceForADateRange(DBProject esql){
