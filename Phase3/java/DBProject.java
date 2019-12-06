@@ -699,8 +699,8 @@ public class DBProject {
        }while(true);
 
        try {
-               ResultSet getCustomer = esql.executeQuery("SELECT * FROM Customer WHERE fname = '" + 
-						fName + "' AND lName = '" + lName + "'");
+               ResultSet getCustomer = esql.executeQuery("SELECT COUNT(*) AS customerID FROM Customer c WHERE c.fname = \'" + 
+						fName + "\' AND c.lName = \'" + lName + "\'");
                getCustomer.next();
 
                ResultSet getNewID = esql.executeQuery("SELECT MAX(bID) AS max_id FROM Booking");
@@ -947,9 +947,9 @@ public class DBProject {
         }while(true);
 
         try {
-                String query = "SELECT r.roomNo, b.bookingDate FROM Room r, Booking b WHERE r.hotelID = b.hotelID AND b.hotelID = " + 
-					hotelID + "AND (b.bookingDate BETWEEN " + date + " AND interval '1 week') AND r.roomNo NOT IN (SELECT r.roomNo FROM booking b WHERE r.roomNo = b.roomNo)GROUP BY b.bookingDate";
-                esql.executeQuery(query);
+                String query = "SELECT b.roomNo, b.customer, b.bookingDate FROM Booking b WHERE b.hotelID = " + hotelID 
+			+ "AND (b.bookingDate BETWEEN \'" + date + "\' AND DATE \'" + date + "\' + INTERVAL '1 week') GROUP BY b.roomNo, b.customer, b.bookingDate";
+                esql.executeQuery2(query);
         }catch(Exception e) {
                 System.err.println(e.getMessage());
         }  
@@ -982,35 +982,48 @@ public class DBProject {
       // Given a customer Name, List Top K highest booking price for a customer 
 	String fName;
         String lName;
-         
-        do{
-               System.out.print("Customer's First Name: ");
-               try{
-                       fName = in.readLine();
-                       break;
-               }catch(Exception e) {
-                       System.err.println(e.getMessage());
-                       continue;
-               }
-       }while(true);
- 
-       do{
-               System.out.print("Customer's Last Name: ");
-               try{
-                       lName = in.readLine();
-                       break;
-               }catch(Exception e) {
-                       System.err.println(e.getMessage());
-                       continue;
-               }
-       }while(true);
+        int K;
 
-       try {
-               String query = "";
-               esql.executeQuery(query);
-       }catch(Exception e) {
-               System.err.println(e.getMessage());
-       }
+         do{
+                System.out.print("Customer's First Name: ");
+                try{
+                        fName = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        do{
+                System.out.print("Customer's Last Name: ");
+                try{
+                        lName = in.readLine();
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+         do{
+                System.out.print("Provide Number of Bookings: ");
+                try{
+                        K = Integer.parseInt(in.readLine());
+                        break;
+                }catch(Exception e) {
+                        System.err.println(e.getMessage());
+                        continue;
+                }
+        }while(true);
+
+        try {
+                String query = "SELECT b.price FROM Booking b, Customer c WHERE c.customerID = b.customer AND c.fName = \'" + 
+					fName + "\' AND c.lname = \'" + lName + "\' ORDER BY b.price DESC LIMIT " + K;
+                esql.executeQuery2(query);
+        }catch(Exception e) {
+                System.err.println(e.getMessage());
+        }
    }//end topKHighestPriceBookingsForACustomer
    
    public static void totalCostForCustomer(DBProject esql){
@@ -1094,12 +1107,12 @@ public class DBProject {
    
    public static void topKMaintenanceCompany(DBProject esql){
 	 // List Top K Maintenance Company Names based on total repair count (descending order)
-        int k;
+        int K;
         
         do{
                 System.out.print("Please enter number of companies: ");
                 try{
-                        k = Integer.parseInt(in.readLine());
+                        K = Integer.parseInt(in.readLine());
                         break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
@@ -1108,9 +1121,8 @@ public class DBProject {
         }while(true);
 
         try {
-                String query = "SELECT m.name FROM MaintenanceCompany m, Repair r WHERE m.cmpID = r.mCompany LIMIT " + k + 
-                                " ORDER BY (SELECT COUNT(*) FROM MaintenanceCompany m, Repair r WHERE m.cmpID = r.mCompany) DESC";
-                esql.executeQuery(query);
+                String query = "SELECT COUNT(r.rID), m.name FROM MaintenanceCompany m, Repair r WHERE m.cmpID = r.mCompany GROUP BY m.name ORDER BY (COUNT(r.rID)) DESC LIMIT " + K;
+                esql.executeQuery2(query);
         }catch(Exception e) {
                 System.err.println(e.getMessage());
         }
@@ -1144,9 +1156,9 @@ public class DBProject {
         }while(true);
         
         try {
-                String query = "SELECT COUNT(*) FROM Repair r WHERE r.roomNo = " + roomNo + 
-                                  "AND r.hotelID = " + hotelID + " AND r.repairDate BETWEEN r.repairDate AND DATEADD(month, 12, r.repairDate)";
-                esql.executeQuery(query);
+                String query = "SELECT DATE_PART('year', r.repairDate), COUNT(*) FROM Repair r WHERE r.roomNo = " + 
+					roomNo +" AND r.hotelID = " + hotelID + " GROUP BY DATE_PART('year', r.repairDate)";
+		esql.executeQuery2(query);
         }catch(Exception e) {
                 System.err.println(e.getMessage());
         }
