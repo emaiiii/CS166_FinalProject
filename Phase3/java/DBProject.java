@@ -557,7 +557,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Room Number: ");
+                System.out.print("Please Enter the Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
                         if(roomNo < 0) {
@@ -571,7 +571,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Company ID: ");
+                System.out.print("Please Enter the Company ID: ");
                 try{
                         mCompany = Integer.parseInt(in.readLine());
                         if(mCompany < 0) {
@@ -585,7 +585,7 @@ public class DBProject {
         }while(true);
 
 	do{
-                System.out.print("Repair Date: ");
+                System.out.print("Please Enter the Repair Date: ");
                 try{
                         repairDate = in.readLine();
                         break;
@@ -596,7 +596,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Description of repair: ");
+                System.out.print("Please Enter the Description of repair: ");
                 try{
                         description = in.readLine();
                         break;
@@ -607,7 +607,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Repair Type: ");
+                System.out.print("Please Enter the Repair Type: ");
                 try{
                         repairType = in.readLine();
                         if(repairType.length() <= 0 || repairType.length() > 10) {
@@ -643,7 +643,7 @@ public class DBProject {
         String lName;
 
         do{
-            System.out.print("Hotel ID: ");
+            System.out.print("Please Enter the Hotel ID: ");
             try{
               hotelID = Integer.parseInt(in.readLine());
               if(hotelID < 0) {
@@ -657,7 +657,7 @@ public class DBProject {
         }while(true);
 
         do{
-            System.out.print("Room Number: ");
+            System.out.print("Please Enter the Room Number: ");
             try{
               roomNo = Integer.parseInt(in.readLine());
               if(roomNo < 0) {
@@ -671,7 +671,7 @@ public class DBProject {
         }while(true);
 
         do{
-               System.out.print("Customer First Name: ");
+               System.out.print("Please Enter the Custome's First Name: ");
                try{
                        fName = in.readLine();
                        break;
@@ -682,7 +682,7 @@ public class DBProject {
        }while(true);
 
        do{
-              System.out.print("Customer Last Name: ");
+              System.out.print("Please Enter the Customer's Last Name: ");
               try{
                       lName = in.readLine();
                       break;
@@ -693,7 +693,7 @@ public class DBProject {
       }while(true);
 
        do{
-              System.out.print("Booking Date: ");
+              System.out.print("Please Enter the Booking Date: ");
               try{
                       bookingDate = in.readLine();
                       break;
@@ -704,7 +704,7 @@ public class DBProject {
       }while(true);
 
        do{
-              System.out.print("Number of Guests: ");
+              System.out.print("Please Enter the Number of Guests: ");
               try{
                       noOfPeople = Integer.parseInt(in.readLine());
                       if(noOfPeople < 0) {
@@ -718,7 +718,7 @@ public class DBProject {
       }while(true);
 
        do{
-              System.out.print("Price of room: ");
+              System.out.print("Please Enter the Price of Room: ");
               try{
                       price = Integer.parseInt(in.readLine());
                       if(price < 0) {
@@ -758,7 +758,7 @@ public class DBProject {
         int roomNo;
   
         do{
-                System.out.print("Staff ID: ");
+                System.out.print("Please Enter the Staff ID: ");
                 try{
                         staffID = Integer.parseInt(in.readLine());
                         break;
@@ -769,7 +769,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         break;
@@ -780,7 +780,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Room Number: ");
+                System.out.print("Please Enter the Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
                         break;
@@ -816,7 +816,7 @@ public class DBProject {
         String description;
 
           do{
-                  System.out.print("Hotel ID: ");
+                  System.out.print("Please Enter the Hotel ID: ");
                   try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -830,7 +830,7 @@ public class DBProject {
           }while(true);
 
           do{
-                  System.out.print("Staff SSN: ");
+                  System.out.print("Please Enter the Staff's SSN: ");
                   try{
                         staffID = Integer.parseInt(in.readLine());
                         if(staffID < 0) {
@@ -844,7 +844,7 @@ public class DBProject {
           }while(true);
 
           do{
-                  System.out.print("Room Number: ");
+                  System.out.print("Please Enter the Room Number: ");
                   try{
                         roomNo = Integer.parseInt(in.readLine());
                         if(roomNo < 0) {
@@ -858,7 +858,7 @@ public class DBProject {
           }while(true);
 
           do{
-                  System.out.print("Repair ID: ");
+                  System.out.print("Please Enter the Repair ID: ");
                   try{
                         repairID = Integer.parseInt(in.readLine());
                         if(repairID < 0) {
@@ -872,7 +872,7 @@ public class DBProject {
           }while(true);
 
           do{
-                  System.out.print("Request Date (MM-DD-YYYY): ");
+                  System.out.print("Please Enter the Request Date (MM-DD-YYYY): ");
                   try{
                         requestDate = in.readLine();
                         if(requestDate.length() != 10) {
@@ -887,7 +887,7 @@ public class DBProject {
           while(true);
 
           do{
-                  System.out.print("Repair Request Description: ");
+                  System.out.print("Please Enter the Repair Request Description: ");
                   try{
                         description = in.readLine();
                         break;
@@ -916,7 +916,7 @@ public class DBProject {
         int hotelID;
         
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -946,7 +946,7 @@ public class DBProject {
         int hotelID;
         
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter to Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -976,7 +976,7 @@ public class DBProject {
         String date;
         
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -1016,7 +1016,7 @@ public class DBProject {
        String dateEnd;
 
        do{
-               System.out.print("Please enter number of rooms: ");
+               System.out.print("Please Enter the Number of Rooms: ");
                try{
                        K = Integer.parseInt(in.readLine());
                        if(K < 0) {
@@ -1030,7 +1030,7 @@ public class DBProject {
        }while(true);
 
        do{
-               System.out.print("Date Start: ");
+               System.out.print("Please Enter Start Date: ");
                try{
                        dateStart = in.readLine();
                        break;
@@ -1041,7 +1041,7 @@ public class DBProject {
        }while(true);
 
        do{
-               System.out.print("Date Start: ");
+               System.out.print("Please Enter End Date: ");
                try{
                        dateEnd = in.readLine();
                        break;
@@ -1067,7 +1067,7 @@ public class DBProject {
         int K;
 
          do{
-                System.out.print("Customer's First Name: ");
+                System.out.print("Please Enter the Customer's First Name: ");
                 try{
                         fName = in.readLine();
                         if(fName.length() <= 0 || fName.length() > 30) {
@@ -1081,7 +1081,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Customer's Last Name: ");
+                System.out.print("Please Enter the Customer's Last Name: ");
                 try{
                         lName = in.readLine();
                         if(lName.length() <= 0 || lName.length() > 30) {
@@ -1095,7 +1095,7 @@ public class DBProject {
         }while(true);
 
          do{
-                System.out.print("Provide Number of Bookings: ");
+                System.out.print("Please Provide Number of Bookings: ");
                 try{
                         K = Integer.parseInt(in.readLine());
                         if(K < 0) {
@@ -1126,7 +1126,7 @@ public class DBProject {
 	String endDate;
 
          do{
-                System.out.print("Customer's First Name: ");
+                System.out.print("Please Enter the Customer's First Name: ");
                 try{
                         fName = in.readLine();
                         if(fName.length() <= 0 || fName.length() > 30) {
@@ -1140,7 +1140,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Customer's Last Name: ");
+                System.out.print("Please Enter the Customer's Last Name: ");
                 try{
                         lName = in.readLine();
                         if(lName.length() <= 0 || lName.length() > 30) {
@@ -1154,7 +1154,7 @@ public class DBProject {
         }while(true);
 
          do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -1168,7 +1168,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Start Date: ");
+                System.out.print("Please Enter Start Date: ");
                 try{
                         startDate = in.readLine();
                         break;
@@ -1179,7 +1179,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("End Date: ");
+                System.out.print("Please Enter the End Date: ");
                 try{
                         endDate = in.readLine();
                         break;
@@ -1209,7 +1209,7 @@ public class DBProject {
 	String companyName;
 
         do{
-                System.out.print("Maintenance Company Name: ");
+                System.out.print("Please Enter the Maintenance Company Name: ");
                 try{
                         companyName = in.readLine();
 			if(companyName.length() <= 0 || companyName.length() > 30) {
@@ -1240,7 +1240,7 @@ public class DBProject {
         int K;
         
         do{
-                System.out.print("Please enter number of companies: ");
+                System.out.print("Please Enter the Number of companies: ");
                 try{
                         K = Integer.parseInt(in.readLine());
                         if(K < 0) {
@@ -1267,7 +1267,7 @@ public class DBProject {
         int roomNo;
 
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
                         if(hotelID < 0) {
@@ -1281,7 +1281,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Room Number: ");
+                System.out.print("Please Enter the Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
                         if(roomNo < 0) {
