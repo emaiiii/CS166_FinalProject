@@ -671,7 +671,7 @@ public class DBProject {
         }while(true);
 
         do{
-               System.out.print("Please Enter the Custome's First Name: ");
+               System.out.print("Please Enter the Customer's First Name: ");
                try{
                        fName = in.readLine();
                        break;
@@ -761,7 +761,10 @@ public class DBProject {
                 System.out.print("Please Enter the Staff ID: ");
                 try{
                         staffID = Integer.parseInt(in.readLine());
-                        break;
+                        if(staffID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}	
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -772,7 +775,10 @@ public class DBProject {
                 System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                       	if(hotelID < 0) {
+                                throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+                        }
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -783,7 +789,10 @@ public class DBProject {
                 System.out.print("Please Enter the Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
-                        break;
+                        if(roomNo < 0) {
+                                throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+                        }
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -809,8 +818,6 @@ public class DBProject {
 	int hotelID;
         int staffID;
         int roomNo;
-
-        int reqID;
         int repairID;
         String requestDate;
         String description;
@@ -830,7 +837,7 @@ public class DBProject {
           }while(true);
 
           do{
-                  System.out.print("Please Enter the Staff's SSN: ");
+                  System.out.print("Please Enter the Staff's ID: ");
                   try{
                         staffID = Integer.parseInt(in.readLine());
                         if(staffID < 0) {
