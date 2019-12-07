@@ -297,9 +297,12 @@ public class DBProject {
 	String gender;
 
 	do{
-		System.out.print("Customer ID: ");
+		System.out.print("Please Enter the Customer ID: ");
 		try{
 			customerID = Integer.parseInt(in.readLine());
+			if(customerID < 0) {
+				throw new RuntimeException("Invalid input: input cannot be a negative integer... Please try again");
+			}
 			break;
 		}catch(Exception e) {
 			System.err.println(e.getMessage());
@@ -309,11 +312,11 @@ public class DBProject {
 
 
         do{
-                System.out.print("First Name: ");
+                System.out.print("Please Enter the Customer's First Name: ");
                 try{
                         fName = in.readLine();
 			if(fName.length() <= 0 || fName.length() > 30) {
-				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...Please try again");
 			}
                         break;
                 }catch(Exception e) {
@@ -324,11 +327,11 @@ public class DBProject {
 
 
         do{
-                System.out.print("Last Name: ");
+                System.out.print("Please Enter the Customer's Last Name: ");
                 try{
                         lName = in.readLine();
 			if(lName.length() <= 0 || lName.length() > 30) {
-				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...Please try again");
 			}
                         break;
                 }catch(Exception e) {
@@ -337,10 +340,8 @@ public class DBProject {
                 }
         }while(true);
 
-
-
         do{
-                System.out.print("Address: ");
+                System.out.print("Please Enter the Customer's Address: ");
                 try{
                         address = in.readLine();
                         break;
@@ -352,7 +353,7 @@ public class DBProject {
 
 
         do{
-                System.out.print("Phone #: ");
+                System.out.print("Please Enter the Customer's Phone #: ");
                 try{
                         phNo = in.readLine();
                         break;
@@ -364,7 +365,7 @@ public class DBProject {
 
 
         do{
-                System.out.print("Date of Birth: ");
+                System.out.print("Please Enter the Customer's Date of Birth (MM/DD/YYYY): ");
                 try{
                         DOB = in.readLine();
                         break;
@@ -376,7 +377,7 @@ public class DBProject {
 
 
         do{
-                System.out.print("Gender: ");
+                System.out.print("Please Enter the Customer's Gender (Male/Female/Other): ");
                 try{
                         gender = in.readLine();
                         break;
@@ -402,9 +403,12 @@ public class DBProject {
       String roomType;
 
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
+			if(hotelID < 0) {
+				throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+			}
                         break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
@@ -413,9 +417,12 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Room Number: ");
+                System.out.print("Please Enter the Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
+                        if(roomNo < 0) {
+                                throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+                        }
                         break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
@@ -424,7 +431,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Room Type: ");
+                System.out.print("Please Enter the Room Type: ");
                 try{
                         roomType = in.readLine();
                         if(roomType.length() <= 0 || roomType.length() > 10) {
@@ -454,10 +461,13 @@ public class DBProject {
 	String isCertified;
 
         do{
-                System.out.print("Company ID: ");
+                System.out.print("Please Enter the Company ID: ");
                 try{
                         cmpID = Integer.parseInt(in.readLine());
-                        break;
+                        if(cmpID < 0) {
+                                throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+                        }
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -465,7 +475,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Name: ");
+                System.out.print("Please Enter the Company Name: ");
                 try{
                         name = in.readLine();
 			if(name.length() <= 0 || name.length() > 10) {
@@ -479,7 +489,7 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Address: ");
+                System.out.print("Please Enter the Company Address: ");
                 try{
                         address = in.readLine();
                         break;
@@ -519,10 +529,13 @@ public class DBProject {
 	String repairType;
 	 
 	do{
-                System.out.print("Repair ID: ");
+                System.out.print("Please Enter the Repair ID: ");
                 try{
                         rID = Integer.parseInt(in.readLine());
-                        break;
+                        if(rID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}    
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -530,10 +543,13 @@ public class DBProject {
         }while(true);
 
         do{
-                System.out.print("Hotel ID: ");
+                System.out.print("Please Enter the Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          	}      
+			 break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -544,7 +560,10 @@ public class DBProject {
                 System.out.print("Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
-                        break;
+                        if(roomNo < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -555,7 +574,10 @@ public class DBProject {
                 System.out.print("Company ID: ");
                 try{
                         mCompany = Integer.parseInt(in.readLine());
-                        break;
+                        if(mCompany < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          	}      
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -624,7 +646,10 @@ public class DBProject {
             System.out.print("Hotel ID: ");
             try{
               hotelID = Integer.parseInt(in.readLine());
-              break;
+              if(hotelID < 0) {
+                	throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+              }      
+	      break;
             }catch(Exception e) {
               System.err.println(e.getMessage());
               continue;
@@ -635,7 +660,10 @@ public class DBProject {
             System.out.print("Room Number: ");
             try{
               roomNo = Integer.parseInt(in.readLine());
-              break;
+              if(roomNo < 0) {
+                	throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+              }      
+	      break;
             }catch(Exception e) {
               System.err.println(e.getMessage());
               continue;
@@ -679,7 +707,10 @@ public class DBProject {
               System.out.print("Number of Guests: ");
               try{
                       noOfPeople = Integer.parseInt(in.readLine());
-                      break;
+                      if(noOfPeople < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          	      }      
+		      break;
               }catch(Exception e) {
                       System.err.println(e.getMessage());
                       continue;
@@ -690,7 +721,10 @@ public class DBProject {
               System.out.print("Price of room: ");
               try{
                       price = Integer.parseInt(in.readLine());
-                      break;
+                      if(price < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          	      }      
+		      break;
               }catch(Exception e) {
                       System.err.println(e.getMessage());
                       continue;
@@ -785,7 +819,10 @@ public class DBProject {
                   System.out.print("Hotel ID: ");
                   try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                   }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -796,7 +833,10 @@ public class DBProject {
                   System.out.print("Staff SSN: ");
                   try{
                         staffID = Integer.parseInt(in.readLine());
-                        break;
+                        if(staffID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                   }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -807,7 +847,10 @@ public class DBProject {
                   System.out.print("Room Number: ");
                   try{
                         roomNo = Integer.parseInt(in.readLine());
-                        break;
+                        if(roomNo < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                   }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -818,7 +861,10 @@ public class DBProject {
                   System.out.print("Repair ID: ");
                   try{
                         repairID = Integer.parseInt(in.readLine());
-                        break;
+                        if(repairID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}	      
+			break;
                   }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -873,7 +919,10 @@ public class DBProject {
                 System.out.print("Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -900,7 +949,10 @@ public class DBProject {
                 System.out.print("Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -927,7 +979,10 @@ public class DBProject {
                 System.out.print("Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -964,7 +1019,10 @@ public class DBProject {
                System.out.print("Please enter number of rooms: ");
                try{
                        K = Integer.parseInt(in.readLine());
-                       break;
+                       if(K < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}      
+			break;
                }catch(Exception e) {
                        System.err.println(e.getMessage());
                        continue;
@@ -1012,7 +1070,10 @@ public class DBProject {
                 System.out.print("Customer's First Name: ");
                 try{
                         fName = in.readLine();
-                        break;
+                        if(fName.length() <= 0 || fName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1023,7 +1084,10 @@ public class DBProject {
                 System.out.print("Customer's Last Name: ");
                 try{
                         lName = in.readLine();
-                        break;
+                        if(lName.length() <= 0 || lName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1034,7 +1098,10 @@ public class DBProject {
                 System.out.print("Provide Number of Bookings: ");
                 try{
                         K = Integer.parseInt(in.readLine());
-                        break;
+                        if(K < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}    
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1062,7 +1129,10 @@ public class DBProject {
                 System.out.print("Customer's First Name: ");
                 try{
                         fName = in.readLine();
-                        break;
+                        if(fName.length() <= 0 || fName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1073,7 +1143,10 @@ public class DBProject {
                 System.out.print("Customer's Last Name: ");
                 try{
                         lName = in.readLine();
-                        break;
+                        if(lName.length() <= 0 || lName.length() > 30) {
+				throw new RuntimeException("Invalid input: input is null or exceeds 30 characters...");
+			}
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1084,7 +1157,10 @@ public class DBProject {
                 System.out.print("Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}	  
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1167,7 +1243,10 @@ public class DBProject {
                 System.out.print("Please enter number of companies: ");
                 try{
                         K = Integer.parseInt(in.readLine());
-                        break;
+                        if(K < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}  
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1191,7 +1270,10 @@ public class DBProject {
                 System.out.print("Hotel ID: ");
                 try{
                         hotelID = Integer.parseInt(in.readLine());
-                        break;
+                        if(hotelID < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}  
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
@@ -1202,7 +1284,10 @@ public class DBProject {
                 System.out.print("Room Number: ");
                 try{
                         roomNo = Integer.parseInt(in.readLine());
-                        break;
+                        if(roomNo < 0) {
+                		throw new RuntimeException("Invalid input: input cannot be a negative integer...Please try again");
+          		}  
+			break;
                 }catch(Exception e) {
                         System.err.println(e.getMessage());
                         continue;
